@@ -23,7 +23,7 @@ public class Game1 : Game
 
     private RectCollider player;
 
-    private bool useGrid = false;
+    private bool useGrid = true;
 
     public Game1()
     {
@@ -35,7 +35,7 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // Change for more or less rects
-        uint rectCount = 500;
+        uint rectCount = 10000;
 
         if(useGrid)
             InitializeGrid(rectCount);
