@@ -35,9 +35,9 @@ public class Game1 : Game
     protected override void Initialize()
     {
         // Change for more or less rects
-        uint rectCount = 10000;
+        uint rectCount = 1000;
 
-        if(useGrid)
+        if (useGrid)
             InitializeGrid(rectCount);
         else
             InitializeRects(rectCount);
@@ -55,7 +55,7 @@ public class Game1 : Game
 
         collisionGrid.Insert(player);
 
-        for(int i = 0; i < rectCount; i++)
+        for (int i = 0; i < rectCount; i++)
         {
             RectCollider collider = new RectCollider(random.Next(0, MAP_WIDTH - 20), random.Next(0, MAP_HEIGHT - 20), random.Next(5, 18), random.Next(5, 18));
 
@@ -71,7 +71,7 @@ public class Game1 : Game
 
         rects.Add(player);
 
-        for(int i = 0; i < rectCount; i++)
+        for (int i = 0; i < rectCount; i++)
         {
             RectCollider collider = new RectCollider(random.Next(0, MAP_WIDTH - 20), random.Next(0, MAP_HEIGHT - 20), random.Next(5, 18), random.Next(5, 18));
 
@@ -92,29 +92,29 @@ public class Game1 : Game
 
         fps.Update(gameTime);
 
-        if(useGrid)
+        if (useGrid)
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
                 collisionGrid.Move(player, 1, 0);
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
+                collisionGrid.Move(player, -1, 0);
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
                 collisionGrid.Move(player, 0, -1);
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
-                collisionGrid.Move(player, 0, -1);
-            if(Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
                 collisionGrid.Move(player, 0, 1);
 
             collisionGrid.Update();
         }
 
-        else 
+        else
         {
-            if(Keyboard.GetState().IsKeyDown(Keys.D))
+            if (Keyboard.GetState().IsKeyDown(Keys.D))
                 player.X += 1;
-            if(Keyboard.GetState().IsKeyDown(Keys.A))
+            if (Keyboard.GetState().IsKeyDown(Keys.A))
                 player.X -= 1;
-            if(Keyboard.GetState().IsKeyDown(Keys.W))
+            if (Keyboard.GetState().IsKeyDown(Keys.W))
                 player.Y -= 1;
-            if(Keyboard.GetState().IsKeyDown(Keys.S))
+            if (Keyboard.GetState().IsKeyDown(Keys.S))
                 player.Y += 1;
 
             UpdateRects();
@@ -126,19 +126,19 @@ public class Game1 : Game
     private void UpdateRects()
     {
 
-        foreach(var rect in rects)
+        foreach (var rect in rects)
         {
             rect.Update();
         }
 
-        for(int i = 0; i < rects.Count; i++)
+        for (int i = 0; i < rects.Count; i++)
         {
-            for(int j = 0; j < rects.Count; j++)
+            for (int j = 0; j < rects.Count; j++)
             {
-                if(i == j)
+                if (i == j)
                     continue;
-                
-                if(rects[i].Intersects(rects[j]))
+
+                if (rects[i].Intersects(rects[j]))
                 {
                     rects[i].isColliding = true;
                     rects[j].isColliding = true;
@@ -149,8 +149,8 @@ public class Game1 : Game
 
     private void DrawRects(SpriteBatch _spriteBatch)
     {
-       
-        foreach(var rect in rects)
+
+        foreach (var rect in rects)
         {
             rect.Draw(_spriteBatch);
         }
@@ -161,11 +161,11 @@ public class Game1 : Game
         GraphicsDevice.Clear(Color.CornflowerBlue);
 
         _spriteBatch.Begin();
-      
-        if(useGrid)
+
+        if (useGrid)
             collisionGrid.Draw(_spriteBatch);
 
-        else 
+        else
             DrawRects(_spriteBatch);
 
         _spriteBatch.FillRectangle(new Rectangle(600, 0, 200, 100), Color.White);
@@ -184,7 +184,7 @@ public class SimpleFps
     private double elapsed = 0;
     private double last = 0;
     private double now = 0;
-    public double msgFrequency = 1.0f; 
+    public double msgFrequency = 1.0f;
     public string msg = "";
 
     /// <summary>
@@ -196,7 +196,7 @@ public class SimpleFps
         elapsed = (double)(now - last);
         if (elapsed > msgFrequency)
         {
-            msg = " Fps: " + Math.Round((frames / elapsed), 2).ToString() + "\n Elapsed time: " + Math.Round(elapsed, 2).ToString() +  "\n Updates: " + updates.ToString() + "\n Frames: " + frames.ToString();
+            msg = " Fps: " + Math.Round((frames / elapsed), 2).ToString() + "\n Elapsed time: " + Math.Round(elapsed, 2).ToString() + "\n Updates: " + updates.ToString() + "\n Frames: " + frames.ToString();
             //Console.WriteLine(msg);
             elapsed = 0;
             frames = 0;
